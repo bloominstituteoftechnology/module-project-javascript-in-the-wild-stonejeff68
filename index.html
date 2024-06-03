@@ -2,176 +2,209 @@
 <html lang="en">
 
 <head>
-  <title>JavaScript in the Wild</title>
+  <title>Advanced Functions</title>
 </head>
 
 <body>
-  <h1>JavaScript in the Wild</h1>
+  <h1>Advanced Functions</h1>
   <p>Please load this file in VSCode and Chrome, and open the Console in Chrome Dev Tools.</p>
   <p>Work through the challenges found inside the script tag in this document,
     until the Console reports all tests passing.</p>
 
   <script>
-    // In CHALLENGES 1-7, you will fill in some functions.
+    // In CHALLENGES 1-8 you will flesh out some functions.
 
     // To do this, translate each 🧠 set of instructions into a working function.
     // ❗ Functions are already scaffolded as arrow functions.
-    // ❗ You must add the parameters to the function that you need
     // ❗ Watch the Guided Project to learn proper debugging technique.
 
     // 👉 CHALLENGE 1
-    // 🧠 The function swapper takes an array and swaps its first and last elements.
-    // 🧠 If the array has fewer than two elements the function returns the string "No swap performed".
+    // 🧠 The function processSingleLearner takes a learner object as its argument, and returns it after some modifications.
+    // 🧠 If the learner has a "lovesJS" property set to 0, we need to set it to false.
+    // 🧠 If the learner has a "lovesJS" property set to 1, we need to set it to true.
+    // 🤔 The reason is that in some databases, Booleans true and false are actually stored as 1 and 0 respectively.
+    // 🤔 But real Booleans are easier to work with, and that is why we might need a function like this!
     // 🧠 Examples of usage:
-    // swapper(['a', 'b']) // should return ['b', 'a']
-    // swapper(['a', 'b', 'c']) // should return ['c', 'b', 'a']
-    // swapper(['a']) // should return "No swap performed"
-    // ❗ Notes
-    // 🧠 Try using destructuring to grab a reference to the first element of the array
-    // 🧠 Try using the at method of arrays to grab the last element
-    const swapper = () => {
-
+    // processSingleLearner({ name: "Elisabeth", lovesJS: 1 }) // should return { name: "Elisabeth", lovesJS: true }
+    // processSingleLearner({ name: "Pete", age: 23, lovesJS: 0 }) // should return { name: "Pete", age: 23, lovesJS: false }
+    const processSingleLearner = (learner) => {
+      if (learner.lovesJS === 0) {
+        learner.lovesJS = false
+      } else if (learner.lovesJS === 1) {
+        learner.lovesJS = true
+      }
+      return learner
     }
-
+ 
     // 👉 CHALLENGE 2
-    // 🧠 The function headAndTail takes an array as its argument.
-    // 🧠 It returns a new array with two elements.
-    // 🧠 The first element is the head of the original array.
-    // 🧠 The second element is the tail of the original array.
-    // 🧠 If the given array is empty, return the string "This array is empty"
+    // 🧠 The function processLearnerLoop takes an array of learner objects as its argument, and returns it after some modifications.
+    // 🧠 For each learner, if the learner has a "lovesJS" property set to 0, we need to set it to false.
+    // 🧠 For each learner, if the learner has a "lovesJS" property set to 1, we need to set it to true.
     // 🧠 Examples of usage:
-    // headAndTail([1, 2, 3]) // should return [1, [2, 3]]
-    // ❗ Notes
-    // 🧠 Try using destructuring and the spread operator to get the head and tail.
-    // 🧠 Try using the ternary operator instead of a conditional statement when deciding what to return.
-    // 🧠 So instead of doing `if ('foo') return 'bar' else return 'baz'` do `return 'foo' ? 'bar' : 'baz'`
-    // 🧠 The above recommendations allow to write the whole function body in just two clean lines!
-    const headAndTail = () => {
+    // processSingleLearner([{ name: "Elisabeth", lovesJS: 1 },{ name: "Pete", age: 23, lovesJS: 0 }])
+    //   should return [{ name: "Elisabeth", lovesJS: true },{ name: "Pete", age: 23, lovesJS: false }]
+    // ❗ Notes:
+    // 🧠 There are many approaches to this problem: using a loop, using forEach, using map...
+    // 🧠 Solve this challenge using a for/in loop or a for loop.
+    const processLearnersLoop = (learners) => {
+      let newLearner = [];
+      for (let i in learners) {
+        let learner = learners[i]
+        processSingleLearner(learner)
+      }
+       return learners 
 
     }
 
     // 👉 CHALLENGE 3
-    // 🧠 The function devGreet takes an isFrontend Boolean, and an isHappy Boolean, as arguments.
-    // 🧠 Examples of usage:
-    // devGreet(true, true) // should return "Hey, I am a frontend dev and I am happy"
-    // devGreet(true, false) // should return "Hey, I am a frontend dev and I am sad"
-    // devGreet(false, true) // should return "Hey, I am a backend dev and I am happy"
-    // devGreet(false, false) // should return "Hey, I am a backend dev and I am sad"
-    // ❗ Notes
-    // 🧠 Use ternary expressions to construct the string.
-    const devGreet = () => {
-
+    // 🧠 The function processLearnerForEach takes an array of learner objects as its argument, and returns it after some modifications.
+    // 🧠 It is an alternate implementation of the function processLearnersLoop above.
+    // ❗ Notes:
+    // 🧠 Solve this challenge using the forEach method of the learners array.
+    // 🧠 Use arrow functions whenever possible.
+    const processLearnerForEach = (learners) => {
+        learners.forEach(learner => {
+          processSingleLearner(learner)
+        })
+        return learners
     }
 
-    // 👉 CHALLENGE 4
-    // 🧠 The function recognize takes an object representing a user.
-    // 🧠 If the object has a name property, return a string in the format "<name> Rules!".
-    // 🧠 If there is no name prop, return the string "Hidden Person Rocks!"
-    // 🧠 Examples of usage:
-    // recognize({ name: 'Katherine Johnson' }) // should return "Katherine Johnson Rules!"
-    // recognize({}) // should return "Hidden Person Rocks!"
-    // ❗ Notes
-    // 🧠 Try using destructuring to grab the name, and a return followed by a ternary expression.
-    const recognize = () => {
 
+    // 👉 CHALLENGE 4
+    // 🧠 The function processLearnerMap takes an array of learner objects as its argument, and returns a new array.
+    // 🧠 It is an alternate implementation of the function processLearnersLoop above.
+    // ❗ Notes:
+    // 🧠 Solve this challenge using the map method of the learners array.
+    // 🧠 Use arrow functions.
+    const processLearnerMap = (learners) => {
+      let mapArray = learners.map(processSingleLearner)
+      return mapArray
     }
 
     // 👉 CHALLENGE 5
-    // 🧠 The function processBooleans takes an array of Booleans represented using integers (1/0 instead of true/false)
-    // 🧠 It should return a new array containing strings ("Y"/"N")
-    // 🧠 Example of usage:
-    // processBooleans([1, 0, 0, 1, 0]) // should return ["Y", "N", "N", "Y", "N"]
-    // ❗ Notes
-    // 🧠 Using map, arrow function syntax, and the ternary, you can make this function a short one-liner
-    const processBooleans = () => {
-
+    // 🧠 The function getJavaScriptLoversForEach takes an array of learner objects and returns an array or a string.
+    // 🧠 The returned array must contain only the learners who love JavaScript.
+    // 🧠 However, if nobody loves JavaScript the function returns the string "no JS lovers here!".
+    // 🧠 Another complication is that the lovesJS prop on the learner could be a Boolean (false/true) or a number (0/1).
+    // ❗ Notes:
+    // 🧠 Solve this challenge using the forEach method of the learners array.
+    // 🧠 You will need to declare a result array into which you push learners from inside your forEach loop.
+    const getJavaScriptLoversForEach = (learners) => {
+      let result = [];
+      learners.forEach(learner => {
+        if (learner.lovesJS) {
+          result.push(learner)
+        }
+      })
+      if (!result.length) {
+        return "no JS lovers here!"
+      }
+      return result
     }
 
     // 👉 CHALLENGE 6
-    // 🧠 The function reverseString takes a string as its argument, and returns it reversed.
-    // 🧠 If the string is a palindrome though, return the string "It's a palindrome!"
-    // 🧠 Examples of usage:
-    // reverseString('Hello, World') // should return "dlroW ,olleH"
-    // ❗ Notes
-    // 🧠 Research on your own what a palindrome is.
-    // 🧠 Split the string but do not use the reverse method of arrays. Let's do it manually.
-    // 🧠 We suggest using a for loop. Research how to loop backwards over an array, starting at the last element.
-    // 🧠 Use a ternary in the return statement.
-    const reverseString = () => {
-
+    // 🧠 The function getJavaScriptLoversFilter takes an array of learner objects and returns an array or a string.
+    // 🧠 It should work exactly the same as the getJavaScriptLoversForEach function above.
+    // ❗ Notes:
+    // 🧠 Solve this challenge using the filter method of the learners array.
+    const getJavaScriptLoversFilter = (learners) => {
+      let filtered = learners.filter(learner => {
+        if (learner.lovesJS) {
+          return true
+        } else {
+          return false
+        }
+      })
+      if (!filtered.length) {
+        return "no JS lovers here!"
+      }
+      return filtered
     }
 
     // 👉 CHALLENGE 7
-    // 🧠 The function zip receives three arrays as arguments. The three arrays are of the same length (which could be any length).
-    // 🧠 Array 1 contains names, array 2 contains year numbers, and array 3 contains Booleans.
-    // 🧠 The zip function returns an array of objects
-    // 🧠 Each object inside the returned array is constructed combining the information from arrays 1, 2, 3.
-    // 🧠 Each object has three props: `name`, `born` and `jsLover`.
+    // 🧠 The function sumOddInts takes an array of integers as its argument and returns an array with two elements.
+    // 🧠 The first element is a number which is the sum of the odd integers in the original array.
+    // 🧠 The second element is an array containing only the odd numbers from the original array, in the same order.
     // 🧠 Examples of usage:
-    // zip(['Joe', 'Anna'], [1987, 1955], [true, false])
-    //   should return [{ name: 'Joe', born: '1987', jsLover: true }, { name: 'Anna', born: 1955, jsLover: false }]
-    // ❗ Notes
-    // 🧠 Even though object properties have no particular order, to avoid confusing
-    // the test runner, please set in each object first name, then age, and finally jsLover.
-    const zip = () => {
+    // sumOddInts([0, 1, 2, 3, 4, 5]) // should return [9, [1, 3, 5]]
+    // sumOddInts([2, 5, 1, 4, 0]) // should return [6, [5, 1]]
+    // sumOddInts([2, 6]) // should return [0, []]
+    // sumOddInts([]) // should return [0, []]
+    // ❗ Notes:
+    // 🧠 This could be solved by using filter to make an array of odd integers, and then using forEach to add them up.
+    // 🧠 Or you could opt for solving everything with a single forEach which is the recommended approach (saves a loop).
+    const sumOddInts = (ints) => {
+      let odds = []
+      let sum = 0
+      ints.forEach(int => {
+        if (int % 2 !== 0) {
+          odds.push(int)
+          sum += int
+        }
+      })
+      return [sum, odds]
+    }
+
+    // 👉 CHALLENGE 8
+    // 🧠 The function checkInts takes any number of arguments, but each argument is an integer.
+    // 🧠 The return value is a new array of strings, its length equal to the number of arguments passed.
+    // 🧠 Each string is "even" if the integer was even, or "odd" if it was odd.
+    // 🧠 If no arguments are passed however, return the string "pass some arguments, yo!".
+    // 🧠 Examples of usage:
+    // checkInts(0, 1, 2, 3, 4, 5) // should return ["even", "odd","even", "odd","even", "odd"]
+    // checkInts(2, 5, 1, 4, 0) // should return ["even", "odd", "odd", "even", "even"]
+    // checkInts(2, 6) // should return ["even", "even"]
+    // ❗ Notes:
+    // 🧠 Solve this problem using rest parameters and map.
+    const checkInts = (...nums) => {
+      if (!nums.length) {
+        return 'pass some arguments, yo!'
+      }
+      return nums.map(num => {
+        if (num % 2 === 0) {
+          return 'even'
+        }
+        return 'odd'
+      })
 
     }
 
     // 🧪 TESTS, do not work below this line
     // 🧪 TESTS, do not work below this line
     // 🧪 TESTS, do not work below this line
-    runTests('CHALLENGE 1 - swapper', swapper, [
-      [[['a', 'b']], ['b', 'a']],
-      [[['a', 'b', 'c']], ['c', 'b', 'a']],
-      [[['a', 'b', 'c', 'd']], ['d', 'b', 'c', 'a']],
-      [[['a']], "No swap performed"],
-      [[[]], "No swap performed"],
+    runTests('CHALLENGE 1 - processSingleLearner', processSingleLearner, [
+      [[{ lovesJS: 1 }], { lovesJS: true }],
+      [[{ lovesJS: 0 }], { lovesJS: false }],
+      [[{ name: "Elisabeth", lovesJS: 1 }], { name: "Elisabeth", lovesJS: true }],
+      [[{ name: "Pete", age: 23, lovesJS: 0 }], { name: "Pete", age: 23, lovesJS: false }],
     ])
-    runTests('CHALLENGE 2 - headAndTail', headAndTail, [
-      [[['a', 'b']], ['a', ['b']]],
-      [[['a', 'b', 'c']], ['a', ['b', 'c']]],
-      [[['a', 'b', 'c', 'd']], ['a', ['b', 'c', 'd']]],
-      [[['a']], ['a', []]],
-      [[[]], "This array is empty"],
-    ])
-    runTests('CHALLENGE 3 - devGreet', devGreet, [
-      [[true, true], "Hey, I am a frontend dev and I am happy"],
-      [[true, false], "Hey, I am a frontend dev and I am sad"],
-      [[false, true], "Hey, I am a backend dev and I am happy"],
-      [[false, false], "Hey, I am a backend dev and I am sad"],
-    ])
-    runTests('CHALLENGE 4 - recognize', recognize, [
-      [[{ name: 'Katherine Johnson' }], "Katherine Johnson Rules!"],
-      [[{ name: 'Gertrude Elion', born: 1918 }], "Gertrude Elion Rules!"],
-      [[{ nobelPrize: 1986 }], "Hidden Person Rocks!"],
-    ])
-    runTests('CHALLENGE 5 - processBooleans', processBooleans, [
-      [[[1, 0, 0, 1, 0, 1]], ["Y", "N", "N", "Y", "N", "Y"]],
-      [[[0, 1, 0, 1, 1]], ["N", "Y", "N", "Y", "Y"]],
-      [[[]], []],
-    ])
-    runTests('CHALLENGE 6 - reverseString', reverseString, [
-      [['Hello, World'], 'dlroW ,olleH'],
-      [['Personal Access Token'], 'nekoT sseccA lanosreP'],
-      [['tesla'], 'alset'],
-      [['rotator'], "It's a palindrome!"],
-      [['tenet'], "It's a palindrome!"],
-      [['axa'], "It's a palindrome!"],
-    ])
-    const unzipped1 = [['Alla', 'Josh', 'Byron'], [1995, 1988, 1996], [true, true, false]]
-    const zipped1 = [
-      { name: 'Alla', born: 1995, jsLover: true },
-      { name: 'Josh', born: 1988, jsLover: true },
-      { name: 'Byron', born: 1996, jsLover: false },
+    const processLearnersTest = [
+      [[[{ name: "Elisabeth", lovesJS: 1 }, { name: "Pete", age: 23, lovesJS: 0 }]], [{ name: "Elisabeth", lovesJS: true }, { name: "Pete", age: 23, lovesJS: false }]],
+      [[[{ lovesJS: 1 }, { lovesJS: 0 }, { lovesJS: 1 }, { lovesJS: 0 }]], [{ lovesJS: true }, { lovesJS: false }, { lovesJS: true }, { lovesJS: false }]],
     ]
-    const unzipped2 = [['Joe', 'Anna'], [1987, 1955], [true, false]]
-    const zipped2 = [
-      { name: 'Joe', born: 1987, jsLover: true },
-      { name: 'Anna', born: 1955, jsLover: false },
+    runTests('CHALLENGE 2 - processLearnersLoop', processLearnersLoop, processLearnersTest)
+    runTests('CHALLENGE 3 - processLearnerForEach', processLearnerForEach, processLearnersTest)
+    runTests('CHALLENGE 4 - processLearnerMap', processLearnerMap, processLearnersTest)
+    const getJavaScriptLoversTest = [
+      [[[{ name: "Elisabeth", lovesJS: 1 }, { name: "Pete", age: 23, lovesJS: 0 }]], [{ name: "Elisabeth", lovesJS: 1 }]],
+      [[[{ name: "Elisabeth", lovesJS: false }, { name: "Pete", age: 23, lovesJS: true }]], [{ name: "Pete", age: 23, lovesJS: true }]],
+      [[[{ lovesJS: 1 }, { lovesJS: 0 }, { lovesJS: true }, { lovesJS: false }]], [{ lovesJS: 1 }, { lovesJS: true }]],
+      [[[{ lovesJS: false }, { lovesJS: 0 }, { lovesJS: false }]], "no JS lovers here!"],
     ]
-    runTests('CHALLENGE 7 - zip', zip, [
-      [unzipped1, zipped1],
-      [unzipped2, zipped2],
+    runTests('CHALLENGE 5 - getJavaScriptLoversForEach', getJavaScriptLoversForEach, getJavaScriptLoversTest)
+    runTests('CHALLENGE 6 - getJavaScriptLoversFilter', getJavaScriptLoversFilter, getJavaScriptLoversTest)
+    runTests('CHALLENGE 7 - sumOddInts', sumOddInts, [
+      [[[0, 1, 2, 3, 4, 5]], [9, [1, 3, 5]]],
+      [[[2, 5, 1, 4, 0]], [6, [5, 1]]],
+      [[[2, 6]], [0, []]],
+      [[[]], [0, []]],
+    ])
+    runTests('CHALLENGE 8 - checkInts', checkInts, [
+      [[0, 1, 2, 3, 4, 5], ["even", "odd", "even", "odd", "even", "odd"]],
+      [[2, 5, 1, 4, 0], ["even", "odd", "odd", "even", "even"]],
+      [[2, 6], ["even", "even"]],
+      [[3, 5], ["odd", "odd"]],
+      [[], "pass some arguments, yo!"],
     ])
     function runTests(testName, func, tests) {
       let results = []
